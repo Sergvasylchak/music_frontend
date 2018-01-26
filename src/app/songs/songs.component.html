@@ -1,0 +1,16 @@
+<div class="ul-songs">
+  <label class="songs_search">
+    <input placeholder="Search song" class="form-control" (keyup)="search.next($event.target.value)"/>
+  </label>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let song of songs">
+      <a routerLink="/detail/{{song.id}}">
+        {{song.name}}
+      </a>
+      <button class="btn btn-sm btn-danger float-right" title="delete hero"
+              (click)="delete(song)">x
+      </button>
+    </li>
+  </ul>
+</div>
