@@ -1,8 +1,8 @@
 {
-  "name": "angular-io-example",
+  "name": "Songs",
   "version": "1.0.0",
   "private": true,
-  "description": "Example project from an angular.io guide.",
+  "description": "Client side app for https://github.com/Sergvasylchak/music API",
   "scripts": {
     "ng": "ng",
     "build": "ng build",
