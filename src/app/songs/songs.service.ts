@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import {Song} from '../models/song';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/switchMap';
+import {Page} from '../models/page';
 
 @Injectable()
 export class SongsService {
@@ -14,22 +15,25 @@ export class SongsService {
   constructor(private http: HttpClient) {
   }
 
-  getSongsBySearch(search: Observable<string>) {
+  getSongsBySearch(search: Observable<string>, page: string) {
     return search.debounceTime(750)
       .distinctUntilChanged()
-      .switchMap(search => this.getSongsByName(search));
+      .switchMap(search => this.getSongsByName(search, page));
   }
 
-  getSongs() {
-    return this.http.get<Song[]>(this.songsUrl)
-      .map((res: Song[]) => res);
-  }
-
-  getSongsByName(name: string) {
-    return this.http.get<Song[]>(this.songsUrl, {
-      params: {'name': name}
+  getSongs(page: string) {
+    return this.http.get<Page<Song>>(this.songsUrl, {
+      params: {'page': page}
     })
-      .map((res: Song[]) => res);
+      .map((res: Page<Song>) => res);
+  }
+
+  getSongsByName(name: string, page: string) {
+    let params = new HttpParams()
+      .append('name', name)
+      .append('page', page);
+    return this.http.get<Page<Song>>(this.songsUrl, {params: params})
+      .map((res: Page<Song>) => res);
   }
 
   addSong(song: Song) {

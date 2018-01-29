@@ -8,9 +8,15 @@
       <a routerLink="/detail/{{song.id}}">
         {{song.name}}
       </a>
-      <button class="btn btn-sm btn-danger float-right" title="delete hero"
-              (click)="delete(song)">x
+      <button class="close delete" (click)="delete(song)" aria-label="Delete song">
+        <span class="delete-span" aria-hidden="true">&times;</span>
       </button>
+    </li>
+  </ul>
+
+  <ul class="pagination float-right">
+    <li class="page-item" *ngFor="let i of pages">
+      <a href="javascript:void(0)" class="page-link" (click)="getSongs(i)">{{i}}</a>
     </li>
   </ul>
 </div>

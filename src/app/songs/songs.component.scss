@@ -2,7 +2,15 @@
   margin: 0 30%;
 }
 
+.close.delete {
+  cursor: pointer;
+}
+
 .songs_search {
   margin-top: 20px;
   margin-left: 75%;
+}
+
+.pagination {
+  margin-top: 5px;
 }
