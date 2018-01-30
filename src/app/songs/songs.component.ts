@@ -5,8 +5,9 @@ import {SongsService} from './songs.service';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/delay';
-import {Subject} from 'rxjs/Subject';
 import {constants} from '../_shared/utils/constants';
+import {Page} from '../models/page';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'app-songs',
@@ -15,7 +16,7 @@ import {constants} from '../_shared/utils/constants';
 })
 export class SongsComponent implements OnInit {
   songs: Song[];
-  search = new Subject<string>();
+  search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
   page = constants.PARAMS.PAGE_NUMBER;
   pages: any[];
 
@@ -23,7 +24,7 @@ export class SongsComponent implements OnInit {
     this.songsService.getSongsBySearch(this.search, this.page)
       .subscribe(songs => {
         this.songs = songs.content;
-        this.pages = Array.from(new Array(songs.totalPages), (val, index) => index + 1);
+        this.getPages(songs);
       });
   }
 
@@ -35,13 +36,25 @@ export class SongsComponent implements OnInit {
     this.songsService.getSongs(page)
       .subscribe(songs => {
         this.songs = songs.content;
-        this.pages = Array.from(new Array(songs.totalPages), (val, index) => index + 1);
+        this.getPages(songs);
       });
   }
 
   delete(song: Song) {
     this.songsService.delete(song)
       .subscribe(() => this.getSongs(this.page));
+  }
+
+  getSongsByName(name: string, page: string) {
+    this.songsService.getSongsByName(name, page)
+      .subscribe(songs => {
+        this.songs = songs.content;
+        this.getPages(songs);
+      });
+  }
+
+  getPages(songs: Page<Song>) {
+    this.pages = Array.from(new Array(songs.totalPages), (val, index) => index + 1);
   }
 
   /*add(name: string): void {

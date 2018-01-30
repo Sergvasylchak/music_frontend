@@ -1,7 +1,6 @@
 <div class="ul-songs">
-  <label class="songs_search">
-    <input placeholder="Search song" class="form-control" (keyup)="search.next($event.target.value)"/>
-  </label>
+
+  <lbry-search model="song" (keyup)="search.next($event.target.value)"></lbry-search>
 
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let song of songs">
@@ -16,7 +15,7 @@
 
   <ul class="pagination float-right">
     <li class="page-item" *ngFor="let i of pages">
-      <a href="javascript:void(0)" class="page-link" (click)="getSongs(i)">{{i}}</a>
+      <lbry-page [page]=i (click)="getSongsByName(search.getValue(), i)"></lbry-page>
     </li>
   </ul>
 </div>
