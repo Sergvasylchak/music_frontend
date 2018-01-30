@@ -9,6 +9,8 @@ import {AppComponent} from './app.component';
 import {SongsService} from './songs/songs.service';
 import {SongsComponent} from './songs/songs.component';
 import {HomeComponent} from './home/home.component';
+import {PaginationComponent} from './_shared/pagination/pagination.component';
+import {SearchComponent} from './_shared/search/search.component';
 
 @NgModule({
   imports: [
@@ -20,10 +22,13 @@ import {HomeComponent} from './home/home.component';
   declarations: [
     AppComponent,
     SongsComponent,
-    HomeComponent
+    HomeComponent,
+    PaginationComponent,
+    SearchComponent
   ],
   providers: [SongsService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [PaginationComponent, SearchComponent]
 })
 export class AppModule {
 }
