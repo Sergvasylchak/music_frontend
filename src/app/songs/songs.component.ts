@@ -43,7 +43,7 @@ export class SongsComponent implements OnInit {
 
   delete(song: Song) {
     this.songsService.delete(song)
-      .subscribe(() => this.getSongs(this.currentPage.toString()));
+      .subscribe(() => this.getSongsByName(this.search.getValue(), this.currentPage.toString()));
   }
 
   getSongsByName(name: string, page: string) {
