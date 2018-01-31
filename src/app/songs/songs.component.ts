@@ -17,11 +17,12 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class SongsComponent implements OnInit {
   songs: Song[];
   search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
-  page = constants.PARAMS.PAGE_NUMBER;
   pages: any[];
+  totalPages: number;
+  currentPage = Number(constants.PARAMS.PAGE_NUMBER);
 
   constructor(private songsService: SongsService) {
-    this.songsService.getSongsBySearch(this.search, this.page)
+    this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
       .subscribe(songs => {
         this.songs = songs.content;
         this.getPages(songs);
@@ -29,7 +30,7 @@ export class SongsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSongs(this.page);
+    this.getSongs(constants.PARAMS.PAGE_NUMBER);
   }
 
   getSongs(page: string): void {
@@ -42,19 +43,37 @@ export class SongsComponent implements OnInit {
 
   delete(song: Song) {
     this.songsService.delete(song)
-      .subscribe(() => this.getSongs(this.page));
+      .subscribe(() => this.getSongs(this.currentPage.toString()));
   }
 
   getSongsByName(name: string, page: string) {
     this.songsService.getSongsByName(name, page)
       .subscribe(songs => {
         this.songs = songs.content;
+        this.currentPage = Number(page);
         this.getPages(songs);
       });
   }
 
   getPages(songs: Page<Song>) {
-    this.pages = Array.from(new Array(songs.totalPages), (val, index) => index + 1);
+    if (songs.content.length === 0) {
+      if (this.currentPage == 1) {
+        return this.pages = [];
+      }
+      this.currentPage = this.currentPage - 1;
+      this.getSongs(this.currentPage.toString());
+    }
+    let array = Array.from(new Array(songs.totalPages), (val, index) => index + 1);
+    this.totalPages = songs.totalPages;
+    array = array.filter(c => {
+      return (array.indexOf(this.currentPage) <= constants.PAGINATION.THREE
+        && array.indexOf(c) <= constants.PAGINATION.SIX)
+        || (array.indexOf(this.currentPage) >= array.indexOf(this.totalPages - constants.PAGINATION.THREE)
+          && array.indexOf(c) >= array.indexOf(this.totalPages - constants.PAGINATION.SIX))
+        || (array.indexOf(c) - array.indexOf(this.currentPage) < constants.PAGINATION.FOUR
+          && array.indexOf(this.currentPage) - array.indexOf(c) < constants.PAGINATION.FOUR);
+    });
+    return this.pages = array;
   }
 
   /*add(name: string): void {

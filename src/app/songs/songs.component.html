@@ -1,5 +1,7 @@
 <div class="ul-songs">
 
+  <a>{{currentPage}}</a>
+
   <lbry-search model="song" (keyup)="search.next($event.target.value)"></lbry-search>
 
   <ul class="list-group">
@@ -14,8 +16,10 @@
   </ul>
 
   <ul class="pagination float-right">
-    <li class="page-item" *ngFor="let i of pages">
+    <lbry-page *ngIf="totalPages > 7" [page]="'First'" (click)="getSongsByName(search.getValue(), 1)"></lbry-page>
+    <li class="page-item" [ngClass]="{'active': i === currentPage}" *ngFor="let i of pages">
       <lbry-page [page]=i (click)="getSongsByName(search.getValue(), i)"></lbry-page>
     </li>
+    <lbry-page *ngIf="totalPages > 7" [page]="'Last'" (click)="getSongsByName(search.getValue(), totalPages)"></lbry-page>
   </ul>
 </div>
