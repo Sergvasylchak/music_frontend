@@ -19,12 +19,13 @@ export class SongsComponent implements OnInit {
   search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
   pages: any[];
   totalPages: number;
-  currentPage = Number(constants.PARAMS.PAGE_NUMBER);
+  currentPage = constants.PAGINATION.ONE;
 
   constructor(private songsService: SongsService) {
     this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
       .subscribe(songs => {
         this.songs = songs.content;
+        this.currentPage = constants.PAGINATION.ONE;
         this.getPages(songs);
       });
   }
@@ -56,12 +57,12 @@ export class SongsComponent implements OnInit {
   }
 
   getPages(songs: Page<Song>) {
-    if (songs.content.length === 0) {
-      if (this.currentPage == 1) {
+    if (songs.content.length === constants.PAGINATION.ZERO) {
+      if (this.currentPage == constants.PAGINATION.ONE) {
         return this.pages = [];
       }
       this.currentPage = this.currentPage - 1;
-      this.getSongs(this.currentPage.toString());
+      this.getSongsByName(this.search.getValue(), this.currentPage.toString());
     }
     let array = Array.from(new Array(songs.totalPages), (val, index) => index + 1);
     this.totalPages = songs.totalPages;

@@ -7,7 +7,9 @@ const constants = {
     THREE_DOTS: '...',
     SIX: 6,
     THREE: 3,
-    FOUR: 4
+    FOUR: 4,
+    ONE: 1,
+    ZERO: 0
   }
 };
 
