@@ -16,14 +16,11 @@ import {AudioComponent} from '../_shared/audio/audio.component';
   styleUrls: ['./songs.component.scss']
 })
 export class SongsComponent implements OnInit {
-  @ViewChild(AudioComponent) audio: AudioComponent;
-
   songs: Song[];
   search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
   pages: any[];
   totalPages: number;
   currentPage = constants.PAGINATION.ONE;
-  played: Song = null;
 
   constructor(private songsService: SongsService) {
     this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
@@ -71,13 +68,5 @@ export class SongsComponent implements OnInit {
           && array.indexOf(this.currentPage) - array.indexOf(c) < constants.PAGINATION.FOUR);
     });
     return this.pages = array;
-  }
-
-  playSong(song: Song) {
-    this.played = song;
-  }
-
-  getUrl(song: Song): string {
-    return 'https://www.youtube.com/embed/' + song.url +"?autoplay=1";
   }
 }
