@@ -2,10 +2,6 @@
   margin: 0 30%;
 }
 
-.close.delete {
-  cursor: pointer;
-}
-
 .songs_search {
   margin-top: 20px;
   margin-left: 75%;
@@ -13,4 +9,27 @@
 
 .pagination {
   margin-top: 5px;
+}
+
+.list-group-item:hover {
+  cursor: pointer;
+  background-color: #dfebf7;
+}
+
+.list-group-item:active, .list-group-item:focus {
+  outline: none;
+  background-color: #adbbca;
+}
+
+.lbry-songs-item:not([href]) {
+  color: #696969;
+  pointer-events: none;
+}
+
+.close.delete {
+  cursor: pointer;
+}
+
+.close.delete:focus {
+  outline: none;
 }

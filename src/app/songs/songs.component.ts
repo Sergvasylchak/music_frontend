@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Song} from '../models/song';
 import {SongsService} from './songs.service';
 
@@ -8,6 +8,7 @@ import 'rxjs/add/operator/delay';
 import {constants} from '../_shared/utils/constants';
 import {Page} from '../models/page';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {AudioComponent} from '../_shared/audio/audio.component';
 
 @Component({
   selector: 'app-songs',
@@ -15,11 +16,14 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
   styleUrls: ['./songs.component.scss']
 })
 export class SongsComponent implements OnInit {
+  @ViewChild(AudioComponent) audio: AudioComponent;
+
   songs: Song[];
   search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
   pages: any[];
   totalPages: number;
   currentPage = constants.PAGINATION.ONE;
+  played: Song = null;
 
   constructor(private songsService: SongsService) {
     this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
@@ -31,15 +35,7 @@ export class SongsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSongs(constants.PARAMS.PAGE_NUMBER);
-  }
-
-  getSongs(page: string): void {
-    this.songsService.getSongs(page)
-      .subscribe(songs => {
-        this.songs = songs.content;
-        this.getPages(songs);
-      });
+    this.getSongsByName(this.search.getValue(), constants.PARAMS.PAGE_NUMBER);
   }
 
   delete(song: Song) {
@@ -77,12 +73,11 @@ export class SongsComponent implements OnInit {
     return this.pages = array;
   }
 
-  /*add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.songsService.addSong({ name } as Song)
-      .subscribe(song => {
-        this.heroes.push(song);
-      });
-  }*/
+  playSong(song: Song) {
+    this.played = song;
+  }
+
+  getUrl(song: Song): string {
+    return 'https://www.youtube.com/embed/' + song.url +"?autoplay=1";
+  }
 }
