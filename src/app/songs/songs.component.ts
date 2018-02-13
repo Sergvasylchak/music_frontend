@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Song} from '../models/song';
 import {SongsService} from './songs.service';
 
@@ -8,7 +8,6 @@ import 'rxjs/add/operator/delay';
 import {constants} from '../_shared/utils/constants';
 import {Page} from '../models/page';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {AudioComponent} from '../_shared/audio/audio.component';
 
 @Component({
   selector: 'app-songs',
