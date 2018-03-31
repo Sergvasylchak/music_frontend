@@ -8,6 +8,7 @@ import 'rxjs/add/operator/delay';
 import {AudioComponent} from '../../_shared/audio/audio.component';
 import {ActivatedRoute} from '@angular/router';
 import {constants} from '../../_shared/utils/constants';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-song',
@@ -22,7 +23,8 @@ export class SongComponent implements OnInit {
   private sub: any;
   private url: string = constants.PARAMS.BLANK;
 
-  constructor(private songsService: SongService, private route: ActivatedRoute) {
+  constructor(private songsService: SongService, private route: ActivatedRoute,
+              private titleService: Title) {
   }
 
   ngOnInit() {
@@ -34,18 +36,20 @@ export class SongComponent implements OnInit {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.titleService.setTitle(constants.STRINGS.TITLE);
   }
 
   delete(song: Song) {
     this.songsService.delete(song)
-      .subscribe(() => this.getSong(this.id))
+      .subscribe(() => this.getSong(this.id));
   }
 
   getSong(id: number) {
     this.songsService.getSongById(id)
       .subscribe(song => {
         this.song = song;
-        this.url =  'https://www.youtube.com/embed/' + this.song.url + '?autoplay=1';
+        this.url = 'https://www.youtube.com/embed/' + this.song.url + '?autoplay=1';
+        this.titleService.setTitle(song.display + ' - ' + song.name);
       });
   }
 }

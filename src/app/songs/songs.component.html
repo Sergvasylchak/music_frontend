@@ -5,7 +5,7 @@
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let song of songs" routerLink="{{song.id}}/details">
       <a class="lbry-songs-item">
-        {{song.performers[0].name}} - {{song.name}}
+        {{song.display}} - {{song.name}}
       </a>
       <button class="close delete" (click)="delete(song)" aria-label="Delete song">
         <span class="delete-span" aria-hidden="true">&times;</span>

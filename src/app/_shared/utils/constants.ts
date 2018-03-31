@@ -10,6 +10,9 @@ const constants = {
     FOUR: 4,
     ONE: 1,
     ZERO: 0
+  },
+  STRINGS: {
+    TITLE: 'Music Library'
   }
 };
 
