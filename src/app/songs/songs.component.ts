@@ -14,7 +14,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
   templateUrl: './songs.component.html',
   styleUrls: ['./songs.component.scss']
 })
-export class SongsComponent implements OnInit {
+export class SongsComponent {
   songs: Song[];
   search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
   pages: any[];
@@ -26,18 +26,6 @@ export class SongsComponent implements OnInit {
       .subscribe(songs => {
         this.songs = songs.content;
         this.currentPage = constants.PAGINATION.ONE;
-        this.getPages(songs);
-      });
-  }
-
-  ngOnInit() {
-    this.getSongs(constants.PARAMS.PAGE_NUMBER);
-  }
-
-  getSongs(page: string): void {
-    this.songsService.getSongs(page)
-      .subscribe(songs => {
-        this.songs = songs.content;
         this.getPages(songs);
       });
   }
@@ -76,13 +64,4 @@ export class SongsComponent implements OnInit {
     });
     return this.pages = array;
   }
-
-  /*add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.songsService.addSong({ name } as Song)
-      .subscribe(song => {
-        this.heroes.push(song);
-      });
-  }*/
 }

@@ -11,6 +11,10 @@ import {SongsComponent} from './songs/songs.component';
 import {HomeComponent} from './home/home.component';
 import {PaginationComponent} from './_shared/pagination/pagination.component';
 import {SearchComponent} from './_shared/search/search.component';
+import {AudioComponent} from './_shared/audio/audio.component';
+import {SafeUrlPipe} from './_shared/pipes/SafeUrlPipe';
+import {SongComponent} from './songs/song/song.component';
+import {SongService} from './songs/song/song.service';
 
 @NgModule({
   imports: [
@@ -22,11 +26,14 @@ import {SearchComponent} from './_shared/search/search.component';
   declarations: [
     AppComponent,
     SongsComponent,
+    SongComponent,
     HomeComponent,
     PaginationComponent,
-    SearchComponent
+    SearchComponent,
+    AudioComponent,
+    SafeUrlPipe
   ],
-  providers: [SongsService],
+  providers: [SongsService, SongService],
   bootstrap: [AppComponent],
   exports: [PaginationComponent, SearchComponent]
 })

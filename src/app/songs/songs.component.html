@@ -3,9 +3,9 @@
   <lbry-search model="song" (keyup)="search.next($event.target.value)"></lbry-search>
 
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let song of songs">
-      <a routerLink="/detail/{{song.id}}">
-        {{song.name}}
+    <li class="list-group-item" *ngFor="let song of songs" routerLink="{{song.id}}/details">
+      <a class="lbry-songs-item">
+        {{song.display}} - {{song.name}}
       </a>
       <button class="close delete" (click)="delete(song)" aria-label="Delete song">
         <span class="delete-span" aria-hidden="true">&times;</span>

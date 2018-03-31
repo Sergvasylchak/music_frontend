@@ -21,18 +21,16 @@ export class SongsService {
       .switchMap(search => this.getSongsByName(search, page));
   }
 
-  getSongs(page: string) {
-    return this.http.get<Page<Song>>(this.songsUrl, {
-      params: {'page': page}
-    })
-      .map((res: Page<Song>) => res);
-  }
-
   getSongsByName(name: string, page: string) {
     let params = new HttpParams()
       .append('name', name)
       .append('page', page);
     return this.http.get<Page<Song>>(this.songsUrl, {params: params})
+      .map((res: Page<Song>) => {
+        res.content.filter(s => Array.isArray(s.performers) && s.performers.length)
+          .forEach(song => song.display = song.performers.reduce(c => c).name);
+        return res;
+      })
       .map((res: Page<Song>) => res);
   }
 
