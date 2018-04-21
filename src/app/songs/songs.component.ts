@@ -5,6 +5,7 @@ import {SongsService} from './songs.service';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/delay';
+import {Subscription} from 'rxjs/Subscription';
 import {constants} from '../_shared/utils/constants';
 import {Page} from '../models/page';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -20,6 +21,7 @@ export class SongsComponent implements OnInit {
   pages: any[];
   totalPages: number;
   currentPage = constants.PAGINATION.ONE;
+  private request = new Subscription();
 
   constructor(private songsService: SongsService) {
     this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
@@ -40,7 +42,8 @@ export class SongsComponent implements OnInit {
   }
 
   getSongsByName(name: string, page: string) {
-    this.songsService.getSongsByName(name, page)
+    this.request.unsubscribe();   
+    this.request = this.songsService.getSongsByName(name, page)
       .subscribe(songs => {
         this.songs = songs.content;
         this.currentPage = Number(page);
