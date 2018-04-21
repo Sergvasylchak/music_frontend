@@ -5,9 +5,5 @@ export class Song {
   name: string;
   url: string;
   performers: Performer[];
-  author = this.performers[0].name;
-
-  getAuthor(): string {
-    return this.performers[0].name;
-  }
+  display: string;
 }

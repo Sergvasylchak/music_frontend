@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {constants} from './_shared/utils/constants';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Music Library';
+  title = constants.STRINGS.TITLE;
 }

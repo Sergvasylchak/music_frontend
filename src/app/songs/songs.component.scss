@@ -26,6 +26,10 @@
   pointer-events: none;
 }
 
+.page-item.active{
+  pointer-events: none;
+}
+
 .close.delete {
   cursor: pointer;
 }
