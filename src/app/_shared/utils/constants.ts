@@ -3,6 +3,9 @@ const constants = {
     PAGE_NUMBER: '1',
     BLANK: ''
   },
+  HEADERS: {
+    AUTH_HEADER: 'Authorization'
+  },
   PAGINATION: {
     THREE_DOTS: '...',
     SIX: 6,

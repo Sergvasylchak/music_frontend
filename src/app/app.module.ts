@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 
@@ -15,6 +15,10 @@ import {AudioComponent} from './_shared/audio/audio.component';
 import {SafeUrlPipe} from './_shared/pipes/SafeUrlPipe';
 import {SongComponent} from './songs/song/song.component';
 import {SongService} from './songs/song/song.service';
+import {LoginComponent} from "./login/login.component";
+import {LoginService} from "./login/login.service";
+import {LbryInterceptor} from "./_shared/interceptor/lbry.interceptor";
+import {AuthGuard} from "./_guards/auth.guard";
 
 @NgModule({
   imports: [
@@ -25,6 +29,7 @@ import {SongService} from './songs/song/song.service';
   ],
   declarations: [
     AppComponent,
+    LoginComponent,
     SongsComponent,
     SongComponent,
     HomeComponent,
@@ -33,7 +38,9 @@ import {SongService} from './songs/song/song.service';
     AudioComponent,
     SafeUrlPipe
   ],
-  providers: [SongsService, SongService],
+  providers: [SongsService, SongService, LoginService, AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: LbryInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent],
   exports: [PaginationComponent, SearchComponent]
 })

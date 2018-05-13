@@ -1,5 +1,22 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
+.navbar-nav {
+  width: 100%;
+}
+
 .text-center {
   padding-top: 15px;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.nav-item.lbry-login {
+  margin-left: 85%;
+}
+
+.nav-item .lbry-welcome {
+  cursor: none;
+  pointer-events: none;
 }
