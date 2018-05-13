@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Song} from '../models/song';
 import {SongsService} from './songs.service';
 
@@ -38,7 +38,7 @@ export class SongsComponent {
   }
 
   getSongsByName(name: string, page: string) {
-    this.request.unsubscribe();   
+    this.request.unsubscribe();
     this.request = this.songsService.getSongsByName(name, page)
       .subscribe(songs => {
         this.songs = songs.content;

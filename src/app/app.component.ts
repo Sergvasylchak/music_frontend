@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {constants} from './_shared/utils/constants';
+import {Router} from "@angular/router";
+import {LoginService} from "./login/login.service";
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,16 @@ import {constants} from './_shared/utils/constants';
 })
 export class AppComponent {
   title = constants.STRINGS.TITLE;
+
+  constructor(private router: Router) {
+  }
+
+  logout() {
+    localStorage.removeItem(constants.HEADERS.AUTH_HEADER);
+    return this.router.navigate(['/login'])
+  }
+
+  logged() {
+    return LoginService._logged();
+  }
 }
