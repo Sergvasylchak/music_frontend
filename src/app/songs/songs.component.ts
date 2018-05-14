@@ -9,6 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {constants} from '../_shared/utils/constants';
 import {Page} from '../models/page';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-songs',
@@ -23,18 +24,13 @@ export class SongsComponent {
   currentPage = constants.PAGINATION.ONE;
   private request = new Subscription();
 
-  constructor(private songsService: SongsService) {
+  constructor(private songsService: SongsService, private router: Router) {
     this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
       .subscribe(songs => {
         this.songs = songs.content;
         this.currentPage = constants.PAGINATION.ONE;
         this.getPages(songs);
       });
-  }
-
-  delete(song: Song) {
-    this.songsService.delete(song)
-      .subscribe(() => this.getSongsByName(this.search.getValue(), this.currentPage.toString()));
   }
 
   getSongsByName(name: string, page: string) {

@@ -19,6 +19,10 @@ import {LoginComponent} from "./login/login.component";
 import {LoginService} from "./login/login.service";
 import {LbryInterceptor} from "./_shared/interceptor/lbry.interceptor";
 import {AuthGuard} from "./_guards/auth.guard";
+import {ProfileComponent} from "./profile/profile.component";
+import {ProfileService} from "./profile/profile.service";
+import {UsersComponent} from "./admin/users/users.component";
+import {UsersService} from "./admin/users/users.service";
 
 @NgModule({
   imports: [
@@ -30,15 +34,16 @@ import {AuthGuard} from "./_guards/auth.guard";
   declarations: [
     AppComponent,
     LoginComponent,
+    UsersComponent,
     SongsComponent,
     SongComponent,
-    HomeComponent,
+    ProfileComponent,
     PaginationComponent,
     SearchComponent,
     AudioComponent,
     SafeUrlPipe
   ],
-  providers: [SongsService, SongService, LoginService, AuthGuard,
+  providers: [SongsService, UsersService, SongService, LoginService, ProfileService, AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: LbryInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],

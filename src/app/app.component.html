@@ -9,6 +9,9 @@
     <li *ngIf="logged()" class="nav-item">
       <a class="nav-link" routerLink="/songs">Songs</a>
     </li>
+    <li *ngIf="isAdmin()" class="nav-item">
+      <a class="nav-link" routerLink="/users">Users</a>
+    </li>
     <li *ngIf="logged()" class="nav-item lbry-login">
       <a class="nav-link" (click)="logout()">Logout</a>
     </li>

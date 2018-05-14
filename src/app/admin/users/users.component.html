@@ -1,0 +1,18 @@
+<div class="ul-users">
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let user of users">
+      <a class="lbry-songs-item">
+        {{user.username}}
+      </a>
+      <button *ngIf="user.role === 'ADMIN'" class="btn btn-danger" (click)="grantRights(user)"
+              aria-label="Remove admin rights">
+        <a>Admin</a>
+      </button>
+      <button *ngIf="user.role === 'USER'" class="btn btn-success" (click)="grantRights(user)"
+              aria-label="Promote to admin">
+        <a>User</a>
+      </button>
+    </li>
+  </ul>
+</div>
