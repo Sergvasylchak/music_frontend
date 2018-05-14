@@ -15,11 +15,15 @@ export class AppComponent {
   }
 
   logout() {
-    localStorage.removeItem(constants.HEADERS.AUTH_HEADER);
+    localStorage.clear();
     return this.router.navigate(['/login'])
   }
 
   logged() {
     return LoginService._logged();
+  }
+
+  isAdmin() {
+    return LoginService._admin();
   }
 }

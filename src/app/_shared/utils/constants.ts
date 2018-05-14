@@ -4,7 +4,9 @@ const constants = {
     BLANK: ''
   },
   HEADERS: {
-    AUTH_HEADER: 'Authorization'
+    AUTH_HEADER: 'Authorization',
+    USERNAME: 'username',
+    ROLE: 'role'
   },
   PAGINATION: {
     THREE_DOTS: '...',
