@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, forwardRef, ViewChild} from '@angular/core';
 import {Song} from '../models/song';
 import {SongsService} from './songs.service';
 
@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {constants} from '../_shared/utils/constants';
 import {Page} from '../models/page';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Router} from "@angular/router";
+import {ModalComponent} from "./dialog/modal.component";
 
 @Component({
   selector: 'app-songs',
@@ -17,6 +17,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./songs.component.scss']
 })
 export class SongsComponent {
+  @ViewChild(forwardRef(() => ModalComponent)) modal: ModalComponent;
   songs: Song[];
   search = new BehaviorSubject<string>(constants.PARAMS.BLANK);
   pages: any[];
@@ -24,7 +25,7 @@ export class SongsComponent {
   currentPage = constants.PAGINATION.ONE;
   private request = new Subscription();
 
-  constructor(private songsService: SongsService, private router: Router) {
+  constructor(private songsService: SongsService) {
     this.songsService.getSongsBySearch(this.search, constants.PARAMS.PAGE_NUMBER)
       .subscribe(songs => {
         this.songs = songs.content;
@@ -62,5 +63,9 @@ export class SongsComponent {
           && array.indexOf(this.currentPage) - array.indexOf(c) < constants.PAGINATION.FOUR);
     });
     return this.pages = array;
+  }
+
+  addToList(id: number) {
+    alert(id.toString() + ' Added successfully');
   }
 }

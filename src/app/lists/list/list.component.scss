@@ -1,3 +1,9 @@
+.list-name {
+  position: relative;
+  margin: 15px 30%;
+  width: 50%;
+}
+
 .ul-songs {
   margin: 0 30%;
 }
@@ -36,6 +42,18 @@
 
 .close.delete:focus {
   outline: none;
+}
+
+.empty-list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -115px;
+  width: 50%;
+}
+
+.empty-note {
+  width: 100%;
 }
 
 .element {
