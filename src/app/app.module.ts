@@ -8,7 +8,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SongsService} from './songs/songs.service';
 import {SongsComponent} from './songs/songs.component';
-import {HomeComponent} from './home/home.component';
 import {PaginationComponent} from './_shared/pagination/pagination.component';
 import {SearchComponent} from './_shared/search/search.component';
 import {AudioComponent} from './_shared/audio/audio.component';
@@ -23,6 +22,11 @@ import {ProfileComponent} from "./profile/profile.component";
 import {ProfileService} from "./profile/profile.service";
 import {UsersComponent} from "./admin/users/users.component";
 import {UsersService} from "./admin/users/users.service";
+import {ListsComponent} from "./lists/lists.component";
+import {ListsService} from "./lists/lists.service";
+import {ListComponent} from "./lists/list/list.component";
+import {ListService} from "./lists/list/list.service";
+import {ModalComponent} from "./songs/dialog/modal.component";
 
 @NgModule({
   imports: [
@@ -34,8 +38,11 @@ import {UsersService} from "./admin/users/users.service";
   declarations: [
     AppComponent,
     LoginComponent,
+    ListsComponent,
+    ListComponent,
     UsersComponent,
     SongsComponent,
+    ModalComponent,
     SongComponent,
     ProfileComponent,
     PaginationComponent,
@@ -43,7 +50,8 @@ import {UsersService} from "./admin/users/users.service";
     AudioComponent,
     SafeUrlPipe
   ],
-  providers: [SongsService, UsersService, SongService, LoginService, ProfileService, AuthGuard,
+  providers: [SongsService, UsersService, SongService, ListsService,
+    LoginService, ProfileService, AuthGuard, ListService,
     {provide: HTTP_INTERCEPTORS, useClass: LbryInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],

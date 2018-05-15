@@ -3,10 +3,21 @@
   <lbry-search model="song" (keyup)="search.next($event.target.value)"></lbry-search>
 
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let song of songs" routerLink="{{song.id}}/details">
-      <a class="lbry-songs-item">
-        {{song.display}} - {{song.name}}
-      </a>
+    <li class="list-group-item" *ngFor="let song of songs">
+      <span class="element" routerLink="{{song.id}}/details">
+       <a class="lbry-songs-item">
+          {{song.display}} - {{song.name}}
+       </a>
+      </span>
+      <span class="action" (click)="modal.show()">
+        ✓
+      </span>
+      <app-modal #modal>
+        <div class="app-modal-footer">
+          <button type="button" class="btn btn-default" (click)="modal.hide()">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="modal.save(song)">Add</button>
+        </div>
+      </app-modal>
     </li>
   </ul>
 
@@ -15,6 +26,7 @@
     <li class="page-item" [ngClass]="{'active': i === currentPage}" *ngFor="let i of pages">
       <lbry-page [page]=i (click)="getSongsByName(search.getValue(), i)"></lbry-page>
     </li>
-    <lbry-page *ngIf="totalPages > 7" [page]="'Last'" (click)="getSongsByName(search.getValue(), totalPages)"></lbry-page>
+    <lbry-page *ngIf="totalPages > 7" [page]="'Last'"
+               (click)="getSongsByName(search.getValue(), totalPages)"></lbry-page>
   </ul>
 </div>

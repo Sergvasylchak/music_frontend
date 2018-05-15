@@ -1,0 +1,17 @@
+<div (click)="onContainerClicked($event)" class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}"
+     [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <select [(ngModel)]="selected">
+          <option value="" disabled selected>Select list</option>
+          <option *ngFor="let list of lists" [ngValue]="list">{{list.name}}</option>
+        </select>
+        <input [(ngModel)]="newName" placeholder="Create new list" class="form-control"/>
+      </div>
+      <div class="modal-footer">
+        <ng-content accesskey=".app-modal-footer"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

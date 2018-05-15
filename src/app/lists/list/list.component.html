@@ -1,0 +1,16 @@
+<h1 class="list-name">{{list?.name}}</h1>
+<div class="ul-songs">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let song of list?.songs" >
+      <span class="element" routerLink="/songs/{{song.id}}/details">
+        <a class="lbry-songs-item">
+          {{song.display}} - {{song.name}}
+        </a>
+      </span>
+      <span class="action" (click)="removeFromList(song.id)">
+        X
+      </span>
+    </li>
+  </ul>
+</div>
+

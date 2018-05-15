@@ -1,0 +1,18 @@
+<div *ngIf="lists?.length > 0" class="ul-songs">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let list of lists">
+      <span class="element" routerLink="{{list.id}}/details">
+        <a class="lbry-songs-item">
+          {{list.name}} - {{list.songs.length}} items
+        </a>
+      </span>
+      <span class="action" (click)="delete(list)">
+        X
+      </span>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="lists?.length === 0" class="empty-list">
+  <p class="empty-note">You haven`t created any lists yet</p>
+</div>
